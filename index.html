@@ -1,0 +1,88 @@
+<!doctype html>
+<script
+  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Top navbar example for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <script>
+         function blackScreen() {
+            var blackScreenUrl = "/cgi-bin/do?cmd=black_screen";
+            var location = document.getElementById("location").value;
+            console.log(location);
+            window.open(location+blackScreenUrl);    
+        }
+        function loadStream() {
+            var location = document.getElementById("location").value;
+            var playMediaUrl = "/cgi-bin/do?cmd=start_file_playback&media_url=";
+            var streamUrl = document.getElementById("streamUrl").value;
+            var fullUrl = location+playMediaUrl+streamUrl;
+			console.log(fullUrl);
+            window.open(fullUrl);    
+        }
+        function getStatus() {
+            var statusUrl = "/cgi-bin/do?cmd=status";
+            var location = document.getElementById("location").value;
+            console.log(location);
+            
+            $.ajax({
+                url: location+statusUrl,
+                dataType: 'html', 
+                type: 'GET',
+                success: function (data) {
+                    console.log(data);              
+                }
+            }); 
+        }
+    </script>
+    <style>
+        .row {
+            margin-left: 0px !important;
+            margin-bottom: 6px !important;
+        }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+      <a class="navbar-brand" href="#">Dune Box Admin</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+    <main role="main" class="container">
+      <div class="jumbotron">
+        <h1>Dune Box Stream Override</h1>
+        <p class="lead">Please stick your stream URL into the box below.</p>
+        <div class="row">   
+            <select class="form-control col-2" id="location">
+              <option value="http://192.168.1.89">Wales Box</option>
+              <option value="http://192.168.1.64">Scotland Box</option>
+            </select>
+            <input class="form-control col-9" style="margin-left: 2px !important;" id="streamUrl" type="url">
+        </div>
+        <div class="row">
+                <a class="btn btn-lg btn-primary col-4-lg" href="#" style="margin-left: 2px !important;"role="button" onclick="loadStream();return false;">Start stream &raquo;</a> 
+        
+                <a class="btn btn-lg btn col-4-lg" style="background-color: black !important; border-color: black !important; color: white !important; margin-left: 2px !important;" href="#" onclick="blackScreen();return false;" role="button">Black Screen &raquo;</a> 
+                
+                <a class="btn btn-lg btn-success col-4-lg" style="margin-left: 2px !important;" href="#" role="button" onclick="getStatus();return false;">Get Status &raquo;</a> 
+        </div>
+      </div>
+    </main>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+       <script src="https://raw.githubusercontent.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
