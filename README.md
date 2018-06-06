@@ -15,7 +15,7 @@ A simple web-application was written with two key functions:
 * Load a specified stream
 * Allow the stream to be ended manually and the playback set to black
 
-![Dune Box Override User](https://image.ibb.co/focKac/dunebox.png "Dune Box Override User")
+![Dune Box Override User](https://preview.ibb.co/md6Uq8/Screen_Shot_2018_06_06_at_14_38_11.png "Dune Box Override User")
 
 ### Choosing which Dune Box
 The application allows control of both the NAfW and Scottish Parl Dune Boxes. This was done using a select with the id ```location```. 
@@ -26,6 +26,23 @@ The application allows control of both the NAfW and Scottish Parl Dune Boxes. Th
 <option value="http://192.168.1.64">Scotland Box</option>
 </select>
 ```
+
+### Choosing what type of stream to input
+The application requests the user choose what type of stream identifier they've submitted. This is a selection betwen ```Welsh GUID``` a ```Welsh Webpage URL``` and a ```Full Stream URL```. 
+
+```html
+    <select class="form-control col-2" id="streamURLType">
+        <option value="welshGUID">Welsh GUID</option>
+        <option value="webpage">Welsh Webpage URL (http://www.senedd.tv/Meeting/Live/c13aa8....)</option>
+        <option value="full">Full Stream URL (protocol://server.com/stream.m3u8)</option>
+    </select>
+```
+
+### Entering a Welsh GUID
+An example Welsh GUID would be: ```c13aa84d-6fe1-4d65-86b5-2573be798ef9```
+
+### Entering a Welsh Webpage URL
+An example Welsh GUID would be: ```www.senedd.tv/Meeting/Live/c13aa84d-6fe1-4d65-86b5-2573be798ef9```
 
 ### Entering a custom stream
 The application requests a cusom stream URL that the Dune Box will attempt to play. This was done using a HTML ```input``` with the id ```streamUrl```. Please see [Dune Support](http://dune-hd.com/support/misc/media_url.txt) for a list of formats and protocols supported by the Dune Boxes. 

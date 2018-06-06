@@ -22,9 +22,23 @@
             window.open(location+blackScreenUrl);    
         }
         function loadStream() {
+            var streamURLType = document.getElementById("streamURLType").value; 
+            if(streamURLType == 'welshGUID'){
+                var streamPrefix = 'http://nafw-live.hls.adaptive.level3.net/d/';
+                var streamSuffix = '/interpretation/interpretation.isml/interpretation.m3u8';
+                var guid = document.getElementById("streamUrl").value.toLowerCase();
+                var streamUrl = streamPrefix + document.getElementById("streamUrl").value.toLowerCase() + streamSuffix;
+            } else if (streamURLType == 'webpage'){
+                var streamPrefix = 'http://nafw-live.hls.adaptive.level3.net/d/';
+                var streamSuffix = '/interpretation/interpretation.isml/interpretation.m3u8';
+                var submittedURL = document.getElementById("streamUrl").value;
+                var guid = submittedURL.substr(submittedURL.lastIndexOf('/') + 1);
+                var streamUrl = streamPrefix + guid.toLowerCase() + streamSuffix;
+            } else {
+                var streamUrl = document.getElementById("streamUrl").value;
+            }
             var location = document.getElementById("location").value;
             var playMediaUrl = "/cgi-bin/do?cmd=start_file_playback&media_url=";
-            var streamUrl = document.getElementById("streamUrl").value;
             var fullUrl = location+playMediaUrl+streamUrl;
 			console.log(fullUrl);
             window.open(fullUrl);    
@@ -62,13 +76,18 @@
     <main role="main" class="container">
       <div class="jumbotron">
         <h1>Dune Box Stream Override</h1>
-        <p class="lead">Please stick your stream URL into the box below.</p>
+        <p class="lead">Please stick your stream URL / GUID / Website Address into the box below.</p>
         <div class="row">   
             <select class="form-control col-2" id="location">
               <option value="http://192.168.1.89">Wales Box</option>
               <option value="http://192.168.1.64">Scotland Box</option>
             </select>
-            <input class="form-control col-9" style="margin-left: 2px !important;" id="streamUrl" type="url">
+            <input class="form-control col-7" style="margin-left: 2px !important;" id="streamUrl" type="url">
+            <select class="form-control col-2" id="streamURLType">
+                <option value="welshGUID">Welsh GUID</option>
+                <option value="webpage">Welsh Webpage URL (http://www.senedd.tv/Meeting/Live/c13aa8....)</option>
+                <option value="full">Full Stream URL (protocol://server.com/stream.m3u8)</option>
+            </select>
         </div>
         <div class="row">
                 <a class="btn btn-lg btn-primary col-4-lg" href="#" style="margin-left: 2px !important;"role="button" onclick="loadStream();return false;">Start stream &raquo;</a> 
@@ -83,6 +102,6 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-       <script src="https://raw.githubusercontent.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.bundle.min.js"></script>
+       <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
